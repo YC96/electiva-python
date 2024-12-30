@@ -19,7 +19,7 @@ Para ejecutar este proyecto, se necesita agregar las siguientes variables de ent
 ### Configuración de FastAPI
 ```bash
   LOG_FILE=logs/app.log
-``
+```
 
 ## Ambiente virtual
 ```bash
