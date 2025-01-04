@@ -1,0 +1,109 @@
+{
+     "products": [
+         {
+             "code": "prd12",
+             "name": "Smartphone NovaTech X50",
+             "description": "Smartphone de gama alta con triple cámara y pantalla AMOLED",
+             "cost": 349.99,
+             "margin": 12.5
+         },
+         {
+             "code": "tab87",
+             "name": "Tablet NovaTech Tab 8 Pro",
+             "description": "Tablet de 8 pulgadas con gran capacidad de almacenamiento",
+             "cost": 219.95,
+             "margin": 15.2
+         },
+         {
+             "code": "ear34",
+             "name": "Auriculares inalámbricos NovaTech AirBuds Pro",
+             "description": "Auriculares con cancelación de ruido activa",
+             "cost": 119.99,
+             "margin": 10.8
+         },
+         {
+             "code": "wat56",
+             "name": "Smartwatch NovaTech Fit",
+             "description": "Smartwatch con GPS integrado y monitor de frecuencia cardíaca",
+             "cost": 179.5,
+             "margin": 13.7
+         },
+         {
+             "code": "lap98",
+             "name": "Laptop NovaTech Book Pro",
+             "description": "Laptop ultra delgada con procesador de última generación",
+             "cost": 849.99,
+             "margin": 11.2
+         },
+         {
+             "code": "spk21",
+             "name": "Altavoz inteligente NovaTech Home",
+             "description": "Altavoz inteligente compatible con asistentes virtuales",
+             "cost": 89.99,
+             "margin": 14.1
+         },
+         {
+             "code": "cam43",
+             "name": "Cámara de seguridad NovaTech Eye",
+             "description": "Cámara de seguridad Wi-Fi con visión nocturna",
+             "cost": 74.95,
+             "margin": 12.3
+         },
+         {
+             "code": "con65",
+             "name": "Consola de videojuegos NovaTech Play",
+             "description": "Consola de videojuegos portátil con juegos preinstalados",
+             "cost": 249.99,
+             "margin": 15.5
+         },
+         {
+             "code": "drn78",
+             "name": "Drone NovaTech Sky",
+             "description": "Drone con cámara 4K y alcance de hasta 2 km",
+             "cost": 399.99,
+             "margin": 10.9
+         },
+         {
+             "code": "tv90",
+             "name": "Smart TV NovaTech Visión 55",
+             "description": "Smart TV de 55 pulgadas con resolución 4K",
+             "cost": 499.95,
+             "margin": 13.4
+         },
+         {
+             "code": "ear11",
+             "name": "Auriculares con cable NovaTec Classic",
+             "description": "Auriculares con cable de alta calidad",
+             "cost": 34.99,
+             "margin": 11.6
+         },
+         {
+             "code": "bat23",
+             "name": "Bateria externa NovaTech PowerBank",
+             "description": "Batería externa de alta capacidad",
+             "cost": 49.95,
+             "margin": 14.8
+         },
+         {
+             "code": "key34",
+             "name": "Teclado mecánico NovaTech Gamer",
+             "description": "Teclado mecánico para gaming con retroiluminación RGB",
+             "cost": 99.99,
+             "margin": 12.1
+         },
+         {
+             "code": "mou56",
+             "name": "Ratón inalámbrico NovaTech Glide",
+             "description": "Ratón inalámbrico ergonómico con alta precisión",
+             "cost": 39.99,
+             "margin": 15.3
+         },
+         {
+             "code": "vr78",
+             "name": "Auriculares VR NovaTech",
+             "description": "Auriculares de realidad virtual para juegos y experiencias inmersivas",
+             "cost": 299.99,
+             "margin": 10.7
+         }
+     ]
+ }
