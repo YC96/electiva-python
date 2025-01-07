@@ -3,9 +3,9 @@ from typing import List, Optional
 import uuid
 from app.users.domain.entities.user_entities import UserEntity, UserCreate, UserUpdate
 from app.users.domain.repository.user_repository import IUserRepository
-import bcrypt
 import re
 from app.users.domain.enum.role import RoleEnum
+from app.auth.infraestructure.auth_controller import JWTService
 
 class UserService:
     def __init__(self, user_repository: IUserRepository):
@@ -20,7 +20,7 @@ class UserService:
         if existing_user_email:
             raise ValueError("El usuario ya existe")
         
-        user.hashed_password = bcrypt.hashpw(user.hashed_password.encode('utf-8'), bcrypt.gensalt())
+        user.hashed_password = JWTService.encrypt_password(user.hashed_password)
         
         if user.role == "superadmin":
             user.role = RoleEnum.SUPERADMIN
@@ -62,6 +62,7 @@ class UserService:
 
     def update_user(self, user: UserUpdate) -> None:
         user.updated_at = datetime.now()
+        print(user)
         return self.user_repository.update(user)
 
     def delete_user(self, user: UserUpdate) -> None:

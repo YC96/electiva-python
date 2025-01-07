@@ -1,4 +1,4 @@
-import bcrypt
+from app.auth.infraestructure.auth_controller import JWTService
 from sqlalchemy import UUID, Column, DateTime, MetaData, String,Boolean, Enum
 from app.users.domain.enum.role import RoleEnum
 from app.common.database.postgresql import Base, engine
@@ -21,13 +21,14 @@ class UserOrm(Base):
 
 def insert_initial_values(target, connection, **kw):
   with Session(bind=connection) as session:
+    password = JWTService.encrypt_password('admin123')
     initial_user = UserOrm(
-      username='administrador',
+      username = 'administrador',
       email = 'superadmin@gmail.com',
-      hashed_password=bcrypt.hashpw('superAdmin123.'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8'),
-      role=RoleEnum.SUPERADMIN,
-      created_at=datetime.now(),
-      updated_at=datetime.now()
+      hashed_password = password,
+      role = RoleEnum.SUPERADMIN,
+      created_at = datetime.now(),
+      updated_at = datetime.now()
     )
     session.add(initial_user)
     session.commit()
