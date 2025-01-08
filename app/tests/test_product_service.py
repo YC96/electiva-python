@@ -12,7 +12,7 @@ class TestProductService(unittest.TestCase):
         self.product_service = ProductService(self.mock_repository)
         self.sample_product = Product(
             id=uuid4(),
-            code="P001",
+            code="P0011",
             name="Sample Product",
             description="This is a sample product",
             cost=100.0,
