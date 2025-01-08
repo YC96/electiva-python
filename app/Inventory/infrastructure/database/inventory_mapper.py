@@ -1,5 +1,5 @@
 from domain.models.inventory import Inventory as DomainInventory
-from domain.models.inventory import Inventory as ORMInventory
+from infrastructure.models.inventory_model import Inventory as ORMInventory
 from infrastructure.api.inventory_schemas import InventoryResponse
 
 
