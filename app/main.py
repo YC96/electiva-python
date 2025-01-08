@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from order.infrastructure.controller.order_controller import router
-from order.infrastructure.database.database_config import Base ,engine
+from app.order.infrastructure.controller.order_controller import router
+from app.order.infrastructure.database.database_config import Base ,engine
 
 
 Base.metadata.create_all(bind=engine)

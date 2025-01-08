@@ -1,7 +1,7 @@
 import uuid
 
 from pydantic import BaseModel, Field
-from order.domain.enum.order_status import OrderStatus
+from app.order.domain.enum.order_status import OrderStatus
 
 
 class OrderItems(BaseModel):

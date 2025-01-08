@@ -1,9 +1,9 @@
 import uuid
 from psycopg2 import IntegrityError
 from sqlalchemy.orm import Session
-from order.domain.entities.order import Order
-from order.domain.repository.interface_order_repository import IOrderRepository
-from order.infrastructure.database.orm.order_orm import OrderOrm
+from app.order.domain.entities.order import Order
+from app.order.domain.repository.interface_order_repository import IOrderRepository
+from app.order.infrastructure.database.orm.order_orm import OrderOrm
 
 class SQLAlchemyOrderRepository(IOrderRepository):
     def __init__(self, db: Session):

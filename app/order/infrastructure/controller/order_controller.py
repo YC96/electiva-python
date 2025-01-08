@@ -2,8 +2,8 @@
 import uuid
 from fastapi import APIRouter, Depends
 from app.order.application.order_services import OrderService
-from order.domain.entities.order import Order
-from order.infrastructure.repository.order_repository import SQLAlchemyOrderRepository
+from app.order.domain.entities.order import Order
+from app.order.infrastructure.repository.order_repository import SQLAlchemyOrderRepository
 
 
 router = APIRouter()

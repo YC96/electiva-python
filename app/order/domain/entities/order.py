@@ -1,8 +1,8 @@
 import datetime
 import uuid
 from pydantic import BaseModel, Field
-from order.domain.entities.order_items import OrderItems
-from order.domain.enum.order_status import OrderStatus
+from app.order.domain.entities.order_items import OrderItems
+from app.order.domain.enum.order_status import OrderStatus
 
 
 class Order(BaseModel):

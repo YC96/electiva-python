@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional
 import uuid
 
-from order.domain.entities.order import Order
+from app.order.domain.entities.order import Order
 
 
 class IOrderRepository(ABC):

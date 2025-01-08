@@ -10,9 +10,9 @@ class OrderOrm(Base):
     status = Column(String, nullable=False)
     created_at = Column(DateTime, nullable=False)
     created_at = Column(DateTime)
-    fk_user = Column(UUID, ForeignKey('users.id'))
+    fk_user = Column(UUID, ForeignKey('user.id'))
     user = relationship("user", back_populates="order")
 
-metadata = MetaData()
-Base.metadata.create_all(bind=engine)
+#metadata = MetaData()
+#Base.metadata.create_all(bind=engine)
 

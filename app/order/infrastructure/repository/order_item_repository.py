@@ -5,7 +5,7 @@ from app.order.domain.entities.order import Order
 from app.order.domain.entities.order_items import OrderItems
 from app.order.domain.repository.interface_order_item_repository import IOrderItemsRepository
 from app.order.infrastructure.database.orm.order_item_orm import OrderItemOrm
-from order.infrastructure.database.orm.order_orm import OrderOrm
+from app.order.infrastructure.database.orm.order_orm import OrderOrm
 
 class SQLAlchemyOrderItemsRepository(IOrderItemsRepository):
     def __init__(self, db: Session):

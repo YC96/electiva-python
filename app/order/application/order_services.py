@@ -1,8 +1,8 @@
 
 from typing import List, Optional
 import uuid
-from order.domain.entities.order import Order
-from order.domain.repository.interface_order_repository import IOrderRepository
+from app.order.domain.entities.order import Order
+from app.order.domain.repository.interface_order_repository import IOrderRepository
 
 class OrderService:
     def __init__(self, repository: IOrderRepository):

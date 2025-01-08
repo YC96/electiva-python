@@ -5,8 +5,8 @@ from app.order.application.order_item_services import OrderItemService
 from app.order.application.order_item_services import OrderItemService
 from app.order.domain.entities.order_items import OrderItems
 from app.order.infrastructure.repository.order_item_repository import SQLAlchemyOrderItemsRepository
-from order.domain.entities.order import Order
-from order.infrastructure.repository.order_repository import SQLAlchemyOrderRepository
+from app.order.domain.entities.order import Order
+from app.order.infrastructure.repository.order_repository import SQLAlchemyOrderRepository
 
 
 router = APIRouter()
