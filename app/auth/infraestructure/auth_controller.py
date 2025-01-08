@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta,timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 import jwt
 from passlib.context import CryptContext
@@ -31,15 +31,8 @@ class JWTService:
 
     @staticmethod
     def encrypt_password(password: str) -> str:
-        response = pwd_context.hash(password)
-        return response
+        return pwd_context.hash(password)
     
     @staticmethod
     def verify_password(plain_password: str, hashed_password: str) -> bool:
-        response = pwd_context.verify(plain_password, hashed_password)
-        return response
-    
-    @staticmethod
-    def decrypt_password(hashed_password):
-        payload = jwt.decode(hashed_password, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
+        return pwd_context.verify(plain_password, hashed_password)

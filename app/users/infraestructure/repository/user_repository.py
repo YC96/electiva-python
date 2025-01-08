@@ -1,7 +1,7 @@
 import uuid
-from psycopg2 import IntegrityError
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
-from app.users.domain.entities.user_entities import UserCreate, UserEntity
+from app.users.domain.entities.user_entities import UserCreate, UserEntity, UserUpdate
 from app.users.domain.repository.user_repository import IUserRepository
 from app.users.infraestructure.orm.user_orm import UserOrm
 
@@ -9,7 +9,7 @@ class SqlAlchemyUserRepository(IUserRepository):
     def __init__(self, session: Session):
         self.session = session
 
-    def create(self, user: UserEntity) -> UserEntity:
+    def create(self, user: UserCreate) -> UserEntity:
         user_dict = user.dict()
         user_orm = UserOrm(**user_dict)
         try:
@@ -21,7 +21,7 @@ class SqlAlchemyUserRepository(IUserRepository):
             self.session.rollback()
             raise e
 
-    def find_all(self) -> UserEntity:
+    def find_all(self) -> list[UserEntity]:
         users = self.session.query(UserOrm).all()
         return users
 
@@ -33,21 +33,21 @@ class SqlAlchemyUserRepository(IUserRepository):
         user = self.session.query(UserOrm).filter(UserOrm.email == email).first()
         return user
 
-    def find_by_role(self, role: str) -> UserCreate:
+    def find_by_role(self, role: str) -> list[UserEntity]:
         users = self.session.query(UserOrm).filter(UserOrm.role == role, UserOrm.is_active == True).all()
         return users
 
-    def update(self, user: UserEntity) -> None:
+    def update(self, user: UserUpdate) -> UserEntity:
         user_orm = self.session.query(UserOrm).filter(UserOrm.id == user.id).first()
-        user_orm.username = user.username
-        user_orm.hashed_password = user.hashed_password
-        user_orm.is_active = user.is_active
-        user_orm.role = user.role
-        user_orm.updated_at = user.updated_at
-        self.session.commit()
+        if user_orm:
+            for key, value in user.dict(exclude_unset=True).items():
+                setattr(user_orm, key, value)
+            self.session.commit()
+            self.session.refresh(user_orm)
         return user_orm
 
     def delete(self, user_id: uuid.UUID) -> None:
         user = self.session.query(UserOrm).filter(UserOrm.id == user_id).first()
-        self.session.delete(user)
-        self.session.commit()
+        if user:
+            self.session.delete(user)
+            self.session.commit()
