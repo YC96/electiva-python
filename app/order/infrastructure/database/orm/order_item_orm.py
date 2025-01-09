@@ -1,4 +1,4 @@
-from app.order.infrastructure.database.database_config import Base
+from app.common.database.postgresql import Base
 from sqlalchemy import UUID, Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 

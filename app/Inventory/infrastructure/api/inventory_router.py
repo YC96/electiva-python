@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from application.services.inventory_service import InventoryService
-from infrastructure.api.inventory_schemas import AddStockRequest
+from app.inventory.application.commands.add_stock_command import AddStockCommand
+from app.inventory.infrastructure.api.inventory_schemas import AddStockRequest
 
 router = APIRouter(prefix="/inventories", tags=["Inventory"])
 

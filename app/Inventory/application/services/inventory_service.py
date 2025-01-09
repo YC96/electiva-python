@@ -6,7 +6,7 @@ from queries.get_product_stock_query import execute_get_product_stock_query
 from commands.add_stock_command import execute_add_stock_command
 from commands.update_stock_command import execute_update_stock_command
 from domain.models.inventory import Inventory
-from infrastructure.database.db_config import get_db
+from app.common.database.postgresql import get_db
 
 class InventoryService:
     def __init__(self, db: Session = Depends(get_db)):

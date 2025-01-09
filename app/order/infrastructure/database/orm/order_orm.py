@@ -1,7 +1,7 @@
 
 from sqlalchemy import UUID, Column, DateTime, Float, ForeignKey, Integer, MetaData, String
 from sqlalchemy.orm import relationship
-from ..database_config import Base, engine
+from app.common.database.postgresql import Base, engine
 
 class OrderOrm(Base):
     __tablename__ = "order"
@@ -13,6 +13,6 @@ class OrderOrm(Base):
     fk_user = Column(UUID, ForeignKey('user.id'))
     user = relationship("user", back_populates="order")
 
-#metadata = MetaData()
-#Base.metadata.create_all(bind=engine)
+metadata = MetaData()
+Base.metadata.create_all(bind=engine)
 

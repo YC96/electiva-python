@@ -1,4 +1,4 @@
-from app.Inventory.infrastructure.database.db_config import get_db
+from app.common.database.postgresql import get_db
 from fastapi import APIRouter, HTTPException, Depends
 from uuid import UUID
 from sqlalchemy.orm import Session
@@ -11,12 +11,13 @@ from api.inventory_schemas import AddStockRequest, UpdateStockRequest, ProductSt
 
 router = APIRouter()
 
+def get_inventory_service(db: Session = Depends(get_db)) -> InventoryService:
+    return InventoryService(db)
 
 @router.get("/inventories/{product_id}", response_model=ProductStockResponse)
 async def get_product_stock(
     product_id: UUID,
-    db: Session = Depends(get_db),
-    inventory_service: InventoryService = Depends(lambda: InventoryService(db))
+    inventory_service: InventoryService = Depends(get_inventory_service),
 ):
     """
     Obtiene la cantidad en inventario de un producto.
@@ -25,7 +26,7 @@ async def get_product_stock(
         product_stock = inventory_service.get_product_stock(product_id)
         return ProductStockResponse(product_id=product_id, quantity=product_stock)
     except Exception as e:
-        raise HTTPException(status_code=404, detail=f"Producto no encontrado: {str(e)}")
+        raise HTTPException(status_code=404, detail=f"Producto no encontrado: {str(e)}")
 
 @router.post("/inventories/{product_id}")
 async def add_product_stock(
