@@ -44,4 +44,4 @@ watchfiles==1.0.3
 websockets==14.1
 pyjwt==2.8.0
 passlib==1.7.4
-python-decouple==3.8
+python-decouple==3.7
