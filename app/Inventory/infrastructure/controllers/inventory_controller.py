@@ -4,7 +4,6 @@ from uuid import UUID
 from sqlalchemy.orm import Session
 from application.commands.add_stock_command import AddStockCommand
 from application.commands.update_stock_command import UpdateStockCommand
-from application.queries.get_product_stock_query import GetProductStockQuery
 from application.services.inventory_service import InventoryService
 from api.inventory_schemas import AddStockRequest, UpdateStockRequest, ProductStockResponse
     

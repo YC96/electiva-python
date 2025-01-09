@@ -1,4 +1,4 @@
-from sqlmodel import Session
+from sqlalchemy.orm import Session
 from commands.generate_inventory_report_command import execute_generate_inventory_report_command
 from datetime import datetime
 

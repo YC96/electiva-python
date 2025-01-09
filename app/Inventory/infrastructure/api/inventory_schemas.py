@@ -8,15 +8,15 @@ class InventoryBase(BaseModel):
     quantity: int
 
 
-class InventoryCreateRequest(InventoryBase):
-    pass
+class AddStockRequest(InventoryBase):
+    warehouse_id: UUID  
+    added_by: str  
 
 
-class InventoryUpdateRequest(BaseModel):
+class UpdateStockRequest(BaseModel):
+    new_quantity: int 
+
+
+class ProductStockResponse(BaseModel):
+    product_id: UUID
     quantity: int
-
-
-class InventoryResponse(InventoryBase):
-    id: UUID
-    created_at: datetime
-    updated_at: datetime | None

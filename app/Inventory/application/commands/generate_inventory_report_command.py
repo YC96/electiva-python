@@ -1,27 +1,35 @@
-from sqlmodel import SQLModel, Field, Session, select
-from typing import List, Optional
+from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.sql import select
+from typing import List
+from datetime import datetime
 from pydantic import BaseModel
+
+Base = declarative_base()
+
+class Inventory(Base):
+    __tablename__ = "inventory"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(Integer, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    warehouse_id = Column(Integer, nullable=True)
+    added_by = Column(String, nullable=True)
+    added_on = Column(DateTime, default=datetime.utcnow)
 
 class InventoryReport(BaseModel):
     product_id: int
     total_quantity: int
 
-class Inventory(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    product_id: int
-    quantity: int
-    warehouse_id: Optional[int]
-    added_by: Optional[str]
-    added_on: datetime
-
 def execute_generate_inventory_report_command(session: Session) -> List[InventoryReport]:
-    statement = select(Inventory.product_id, Inventory.quantity)
-    results = session.exec(statement).all()
+    statement = (
+        select(Inventory.product_id, func.sum(Inventory.quantity).label("total_quantity"))
+        .group_by(Inventory.product_id)
+    )
+    results = session.execute(statement).fetchall()
 
-    report = {}
-    for result in results:
-        if result.product_id not in report:
-            report[result.product_id] = 0
-        report[result.product_id] += result.quantity
-
-    return [InventoryReport(product_id=pid, total_quantity=qty) for pid, qty in report.items()]
+    report = [
+        InventoryReport(product_id=row.product_id, total_quantity=row.total_quantity)
+        for row in results
+    ]
+    return report

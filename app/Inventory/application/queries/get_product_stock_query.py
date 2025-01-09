@@ -1,22 +1,26 @@
-from sqlmodel import SQLModel, Field, Session, select
-from typing import Optional
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import declarative_base, Session
 from pydantic import BaseModel
+from datetime import datetime
+
+Base = declarative_base()
+
+class Inventory(Base):
+    __tablename__ = "inventory"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(Integer, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    warehouse_id = Column(Integer, nullable=True)
+    added_by = Column(String, nullable=True)
+    added_on = Column(DateTime, default=datetime.utcnow)
 
 class ProductStock(BaseModel):
     product_id: int
     total_quantity: int
 
-class Inventory(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    product_id: int
-    quantity: int
-    warehouse_id: Optional[int]
-    added_by: Optional[str]
-    added_on: str
-
 def execute_get_product_stock_query(product_id: int, session: Session) -> ProductStock:
-    statement = select(Inventory).where(Inventory.product_id == product_id)
-    results = session.exec(statement).all()
+    results = session.query(Inventory).filter(Inventory.product_id == product_id).all()
 
     if not results:
         raise ValueError(f"No stock found for product ID: {product_id}")

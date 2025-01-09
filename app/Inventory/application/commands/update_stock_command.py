@@ -1,28 +1,34 @@
-from sqlmodel import SQLModel, Field, Session, select
-from typing import Optional
+from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import declarative_base, Session
 from pydantic import BaseModel
+from datetime import datetime
+
+Base = declarative_base()
+
+class Inventory(Base):
+    __tablename__ = "inventory"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(Integer, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    warehouse_id = Column(Integer, nullable=True)
+    added_by = Column(String, nullable=True)
+    added_on = Column(DateTime, default=datetime.utcnow)
 
 class UpdateStockCommand(BaseModel):
     inventory_id: int
     quantity: int
 
-class Inventory(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    product_id: int
-    quantity: int
-    warehouse_id: Optional[int]
-    added_by: Optional[str]
-    added_on: datetime
-
 def execute_update_stock_command(command: UpdateStockCommand, session: Session):
-    statement = select(Inventory).where(Inventory.id == command.inventory_id)
-    result = session.exec(statement).first()
+    inventory_item = session.query(Inventory).filter(Inventory.id == command.inventory_id).first()
 
-    if not result:
+    if not inventory_item:
         raise ValueError("Inventory item not found")
-    
-    result.quantity = command.quantity
-    session.add(result)
+
+    inventory_item.quantity = command.quantity
+
     session.commit()
-    session.refresh(result)
-    return result
+
+    session.refresh(inventory_item)
+
+    return inventory_item
