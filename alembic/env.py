@@ -2,7 +2,10 @@ from logging.config import fileConfig
 import os
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from app.products.infrastructure.database.models import Base
+from app.products.infrastructure.database.productORM import Base as ProductBase
+from app.users.infraestructure.orm.user_orm import Base as UserBase
+from app.order.infrastructure.database.orm.order_orm import Base as OrderBase
+from app.order.infrastructure.database.orm.order_item_orm import Base as OrderItemBase
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -14,7 +17,12 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-target_metadata = Base.metadata
+target_metadata = [
+    ProductBase.metadata,
+    UserBase.metadata,
+    OrderBase.metadata,
+    OrderItemBase.metadata,
+]
 
 def get_url():
     user = os.getenv("POSTGRES_USER")
